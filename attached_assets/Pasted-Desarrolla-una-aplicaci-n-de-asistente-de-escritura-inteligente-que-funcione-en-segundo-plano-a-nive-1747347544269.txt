@@ -1,0 +1,98 @@
+Desarrolla una aplicación de asistente de escritura inteligente que funcione en segundo plano a nivel del sistema operativo. La aplicación debe ofrecer asistencia en tiempo real para mejorar la escritura del usuario en cualquier entorno de texto (por ejemplo, navegadores, procesadores de texto, formularios web, etc.). A continuación se detallan los requisitos funcionales, técnicos y estructurales clave:
+🧠 Funcionalidad principal (asistente en segundo plano)
+
+    Corrección automática y sugerencias:
+
+        Detectar errores ortográficos o tipográficos en cualquier texto que el usuario escriba en tiempo real.
+
+        Corregir automáticamente errores comunes.
+
+        Mostrar un menú desplegable contextual con sugerencias alternativas cuando se detecta una palabra incorrecta.
+
+        Permitir al usuario seleccionar fácilmente la corrección deseada desde dicho menú.
+
+    Autocompletado inteligente:
+
+        Ofrecer sugerencias de autocompletado mientras el usuario escribe, analizando el contexto semántico y la frase completa.
+
+        Las sugerencias deben ser relevantes, fluidas y actualizadas a medida que el usuario sigue escribiendo.
+
+        Implementar un sistema de aprendizaje automático o integración con modelos de lenguaje para mejorar las predicciones con el tiempo.
+
+🖥️ Interfaz gráfica (GUI)
+
+    Panel de configuración:
+
+        La aplicación debe incluir una interfaz gráfica accesible desde la bandeja del sistema o similar, que funcione como centro de control y configuración.
+
+        El panel debe permitir al usuario activar/desactivar funciones específicas, cambiar configuraciones de corrección y autocompletado, elegir idioma, y personalizar el comportamiento general del asistente.
+
+    Estadísticas e información:
+
+        Incluir un apartado en la interfaz donde el usuario pueda consultar estadísticas de uso, como:
+
+            Número de palabras corregidas.
+
+            Frases sugeridas.
+
+            Tasa de errores ortográficos.
+
+            Tiempo estimado ahorrado al escribir.
+
+    Diseño y experiencia de usuario:
+
+        El diseño debe ser moderno, limpio, responsivo y fácil de usar.
+
+        Debe integrarse de forma discreta al flujo de trabajo del usuario sin interrumpir su escritura.
+
+⚙️ Requisitos técnicos
+
+    La aplicación debe ejecutarse en segundo plano con bajo consumo de recursos.
+
+    Debe tener compatibilidad multiplataforma, al menos para Windows y macOS.
+
+    El menú desplegable con sugerencias debe funcionar en cualquier campo de texto (similar a Grammarly).
+
+    Puede utilizar APIs o modelos de lenguaje (como OpenAI o similares) para procesar texto y generar sugerencias inteligentes.
+
+    La corrección debe realizarse en tiempo real, sin retardos perceptibles.
+
+    Debe ser posible actualizar el modelo/sistema de sugerencias sin interrumpir la experiencia del usuario.
+
+🧱 Estructura del proyecto (organización del código)
+
+Debe diseñarse una estructura de proyecto limpia, eficiente y modular, que facilite el mantenimiento, la escalabilidad y el trabajo colaborativo. Considera los siguientes lineamientos:
+
+    Separación clara de responsabilidades: dividir lógica de negocio, interfaz de usuario, controladores, servicios, módulos de integración externa, y configuración general.
+
+    Uso de patrones de diseño adecuados como MVC, MVVM o similar, según el stack tecnológico elegido.
+
+    Directorios bien definidos, por ejemplo:
+
+    /src
+      /core         → lógica de corrección, sugerencias, autocompletado
+      /ui           → componentes de la interfaz gráfica
+      /services     → llamadas a APIs externas, modelos de lenguaje
+      /config       → configuraciones del sistema y del usuario
+      /utils        → funciones auxiliares reutilizables
+      /platform     → integración específica con OS (Windows/macOS)
+
+    Documentación básica en el código y un archivo README.md explicando cómo iniciar el proyecto, dependencias y estructura.
+
+    Debe ser fácilmente testeable, con posibilidad de incluir pruebas unitarias/modulares.
+
+    Considera usar herramientas modernas de build y empaquetado (por ejemplo, Electron, Tauri, PyInstaller, según el lenguaje).
+
+💡 Extras opcionales (para mejorar aún más)
+
+    Soporte para múltiples idiomas.
+
+    Modo oscuro en la interfaz.
+
+    Posibilidad de importar diccionarios personalizados o entrenar preferencias del usuario.
+
+    Función de historial de correcciones realizadas.
+
+    Integración con herramientas populares (navegadores, apps de mensajería, editores de código).
+
+Este asistente de escritura inteligente debe enfocarse en ser contextualmente preciso, fluido y altamente personalizable, ayudando al usuario a escribir mejor sin interrumpir su flujo de trabajo, con una arquitectura profesional y preparada para crecer.

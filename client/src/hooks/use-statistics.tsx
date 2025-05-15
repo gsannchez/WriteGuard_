@@ -11,11 +11,21 @@ export interface Statistics {
     'Words Analyzed': number;
     'Time Saved': string;
   };
+  correctionsByType: {
+    spelling: number;
+    grammar: number;
+    style: number;
+    autocomplete: number;
+  };
+  commonErrors: Array<{
+    word: string;
+    count: number;
+  }>;
 }
 
 export interface RecentCorrection {
   id: number;
-  type: 'spelling' | 'grammar' | 'autocomplete';
+  type: 'spelling' | 'grammar' | 'style' | 'autocomplete';
   title: string;
   description: string;
   time: string;
@@ -85,6 +95,19 @@ const defaultStatistics: Statistics = {
     'Words Analyzed': 4286,
     'Time Saved': '12 min',
   },
+  correctionsByType: {
+    spelling: 56,
+    grammar: 32,
+    style: 18,
+    autocomplete: 24
+  },
+  commonErrors: [
+    { word: "teh", count: 12 },
+    { word: "their/there", count: 8 },
+    { word: "its/it's", count: 7 },
+    { word: "your/you're", count: 6 },
+    { word: "affect/effect", count: 4 }
+  ]
 };
 
 const defaultRecentCorrections: RecentCorrection[] = [
@@ -108,6 +131,13 @@ const defaultRecentCorrections: RecentCorrection[] = [
     title: 'Autocomplete suggestion',
     description: 'Completed "Thank you for your cons..." in Gmail',
     time: '42 minutes ago',
+  },
+  {
+    id: 4,
+    type: 'style',
+    title: 'Style improvement',
+    description: 'Simplified "due to the fact that" to "because" in Slack',
+    time: '1 hour ago',
   },
 ];
 

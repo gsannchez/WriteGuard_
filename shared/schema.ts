@@ -6,15 +6,28 @@ import { z } from "zod";
 export const settings = pgTable("settings", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").notNull(),
+  // System options
   startOnBoot: boolean("start_on_boot").notNull().default(true),
   showInTray: boolean("show_in_tray").notNull().default(true),
   autoUpdates: boolean("auto_updates").notNull().default(true),
+  // Correction options
   spellingCheck: boolean("spelling_check").notNull().default(true),
   grammarCheck: boolean("grammar_check").notNull().default(true),
+  styleCheck: boolean("style_check").notNull().default(false),
   autocomplete: boolean("autocomplete").notNull().default(true),
+  // Style preferences
   language: text("language").notNull().default("en-US"),
+  writingStyle: text("writing_style").notNull().default("standard"),
+  correctionSensitivity: text("correction_sensitivity").notNull().default("medium"),
+  // Privacy options
   usageData: boolean("usage_data").notNull().default(true),
   storeHistory: boolean("store_history").notNull().default(true),
+  workOffline: boolean("work_offline").notNull().default(false),
+  // UI preferences
+  notificationStyle: text("notification_style").notNull().default("popup"),
+  zenMode: boolean("zen_mode").notNull().default(false),
+  // System
+  globalShortcut: text("global_shortcut").notNull().default("Control+Shift+Space"),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 

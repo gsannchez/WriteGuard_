@@ -1,0 +1,117 @@
+ Prompt de desarrollo – Fase 3: Rendimiento, privacidad y robustez del sistema
+
+Ya hemos implementado una aplicación de escritorio funcional con personalización avanzada y estadísticas detalladas. Ahora es momento de consolidar y robustecer el asistente de escritura inteligente, enfocándonos en:
+rendimiento, seguridad, trabajo offline, estabilidad del sistema y soporte multiplataforma completo.
+✅ Tareas prioritarias para esta Fase 3:
+1. 🧠 Modo local (Offline)
+
+    Implementar una opción en configuración para activar un modo local/offline.
+
+    Si se activa este modo, el agente no debe usar la API de OpenAI. En su lugar, debe:
+
+        Usar una librería local para corrección ortográfica y gramatical básica, como:
+
+            nspell (JS)
+
+            nodehun (basado en Hunspell)
+
+            O conectar con un servicio Python local usando spaCy o language-tool.
+
+    Indicar claramente en la UI si el modo activo es:
+
+        🟢 “Online con OpenAI”
+
+        🔵 “Offline con corrector local”
+
+2. 🚀 Optimización del rendimiento
+
+    Evitar análisis excesivo de texto: usar un buffer con temporizador (ej. 500ms sin escribir antes de analizar).
+
+    Evitar sugerencias redundantes si el texto no ha cambiado.
+
+    Mejorar gestión de memoria: descarga de procesos o librerías si no se están usando.
+
+    Medir consumo de recursos y crear un panel interno (opcional) para mostrar CPU/RAM usados por el agente.
+
+3. 🔐 Privacidad del usuario
+
+    Añadir una sección en la configuración que permita:
+
+        Activar/desactivar el envío de datos a terceros (OpenAI, estadísticas).
+
+        Ver qué datos se están analizando (último texto enviado al modelo).
+
+        Activar logs locales (debug/logs) para desarrollo o auditoría.
+
+    Mostrar un indicador visual cuando se estén usando modelos externos.
+
+4. 🧩 Modularidad y extensibilidad
+
+    Refactorizar el código base si es necesario para permitir:
+
+        Nuevos “módulos de análisis” (por ejemplo, reescritura persuasiva, resumen, etc.)
+
+        Plug-ins (futuros): arquitectura de inyección para herramientas externas.
+
+    Cada módulo debería tener:
+
+        Su propio archivo de configuración.
+
+        Su registro de actividad.
+
+        Una forma de activarse/desactivarse individualmente.
+
+5. 🪟 Mejor integración con el sistema operativo
+
+    Añadir opción en configuración para que la app:
+
+        Se inicie automáticamente con el sistema.
+
+        Se ejecute en segundo plano como un tray app invisible.
+
+        Se reactive con un atajo de teclado global configurable (ejemplo: Ctrl + Shift + Space).
+
+    Permitir al usuario:
+
+        Minimizar la UI a la bandeja del sistema.
+
+        Lanzar una ventana flotante rápida con un botón o atajo.
+
+6. 🧪 Modo desarrollador y pruebas
+
+    Agregar un “modo desarrollador”:
+
+        Mostrar tiempo de respuesta de la API/local.
+
+        Mostrar prompts enviados y respuestas recibidas.
+
+        Mostrar errores de análisis o fallos del sistema.
+
+    Permitir simular entradas para testeo (texto falso, simulación de escritura, etc.)
+
+📁 Estructura sugerida para mantener código modular y escalable
+
+Si no se ha hecho aún, separar bien los módulos por propósito:
+
+/core
+  /analysis       → lógica de corrección, autocompletado, estilo
+  /offline        → correctores locales, fallback offline
+  /models         → plantillas de prompts, configuración de tono/sensibilidad
+/system
+  /tray           → integración con bandeja del sistema
+  /shortcuts      → atajos de teclado
+  /startup        → auto-launch, permisos, actualizaciones
+/ui
+  /settings       → panel de configuración por secciones
+  /stats          → gráficos y métricas
+  /notifications  → sugerencias, errores, alertas de red
+/tests
+  /mocks          → datos de prueba
+
+📌 Bonus opcional
+
+    Crear un sistema de backup de configuración/exportación/importación.
+
+    Añadir una guía interactiva de bienvenida o un onboarding para nuevos usuarios.
+
+    Implementar “perfil de escritura” basado en hábitos: muestra sugerencias en base al uso histórico (ej. tono demasiado informal, errores comunes, etc.).

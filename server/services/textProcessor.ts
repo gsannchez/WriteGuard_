@@ -1,5 +1,7 @@
 import { checkSpelling } from './dictionary';
 import { analyzeSentence } from './openai';
+import { analyzeTextOffline } from './localSpellChecker';
+import { storage } from '../storage';
 
 interface CorrectionItem {
   word: string;
@@ -14,6 +16,41 @@ interface AnalysisResult {
 }
 
 export async function analyzeText(text: string): Promise<AnalysisResult> {
+  // Get user settings to check if offline mode is enabled
+  const settings = await storage.getSettings();
+  const isOfflineMode = settings.workOffline || false;
+  const language = settings.language || 'en';
+  
+  // Use different analysis approach based on settings
+  if (isOfflineMode) {
+    console.log('Using offline text analysis');
+    return analyzeTextLocal(text, language);
+  } else {
+    console.log('Using online text analysis (OpenAI)');
+    return analyzeTextWithAI(text);
+  }
+}
+
+/**
+ * Analyze text using local processing only (offline mode)
+ */
+async function analyzeTextLocal(text: string, language: string): Promise<AnalysisResult> {
+  try {
+    // Use the local spell checker implementation
+    return await analyzeTextOffline(text, language);
+  } catch (error) {
+    console.error('Error in offline text analysis:', error);
+    return {
+      corrections: [],
+      autocompleteSuggestions: []
+    };
+  }
+}
+
+/**
+ * Analyze text using OpenAI API (online mode)
+ */
+async function analyzeTextWithAI(text: string): Promise<AnalysisResult> {
   // Initialize the result object
   const result: AnalysisResult = {
     corrections: [],

@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Tray, Menu, globalShortcut, ipcMain, screen } = require('electron');
 const path = require('path');
 const Store = require('electron-store');
+const textMonitor = require('./textMonitor');
 
 // Initialize store for settings
 const store = new Store({
@@ -144,6 +145,13 @@ app.whenReady().then(() => {
   
   // Setup IPC listeners for renderer process communication
   setupIPC();
+  
+  // Start text monitoring
+  textMonitor.start(mainWindow);
+  
+  // Set excluded apps from settings
+  const excludedApps = store.get('settings.excludedApps') || [];
+  textMonitor.setExcludedApps(excludedApps);
 });
 
 // Set up IPC communication
@@ -180,6 +188,14 @@ function setupIPC() {
   // Toggle text monitoring
   ipcMain.handle('toggle-text-monitor', (event, active) => {
     textMonitorActive = active;
+    
+    // Update text monitor status
+    if (active) {
+      textMonitor.start(mainWindow);
+    } else {
+      textMonitor.stop();
+    }
+    
     // Update tray menu
     const menu = tray.getContextMenu();
     const monitoringMenuItem = menu.items.find(item => item.label === 'Enable Text Monitoring');
@@ -198,6 +214,9 @@ function setupIPC() {
     if (!excludedApps.includes(appName)) {
       excludedApps.push(appName);
       store.set('settings.excludedApps', excludedApps);
+      
+      // Update text monitor excluded apps
+      textMonitor.setExcludedApps(excludedApps);
     }
     
     return excludedApps;
@@ -211,6 +230,9 @@ function setupIPC() {
     const updatedExcludedApps = excludedApps.filter(app => app !== appName);
     store.set('settings.excludedApps', updatedExcludedApps);
     
+    // Update text monitor excluded apps
+    textMonitor.setExcludedApps(updatedExcludedApps);
+    
     return updatedExcludedApps;
   });
   
@@ -218,6 +240,11 @@ function setupIPC() {
   ipcMain.handle('get-excluded-apps', () => {
     const settings = store.get('settings');
     return settings.excludedApps || [];
+  });
+  
+  // For testing: Simulate typing text
+  ipcMain.handle('simulate-typing', (event, text, app) => {
+    return textMonitor.handleTextInput(text, app);
   });
 }
 

@@ -1,0 +1,110 @@
+🎯 Prompt de desarrollo – Fase 2: Mejora avanzada del asistente de escritura inteligente
+
+El objetivo es continuar el desarrollo de la aplicación de escritorio instalable, local y multiplataforma que funciona como un asistente de escritura inteligente a nivel de sistema operativo. Esta nueva fase debe centrarse en refinar la experiencia del usuario, mejorar el rendimiento, añadir personalización y consolidar la arquitectura para escalar.
+✅ Tareas para esta etapa:
+1. 🔁 Mejorar el sistema de sugerencias y corrección
+
+    Integrar un sistema de detección contextual más preciso para sugerencias de autocompletado y corrección. Idealmente, usar un modelo como gpt-3.5-turbo o gpt-4 con parámetros ajustables (max tokens, temperatura, etc.).
+
+    Optimizar los prompts enviados al modelo para obtener:
+
+        Reescrituras claras y concisas.
+
+        Autocompletados relevantes al contexto de las 2–3 frases previas.
+
+    Añadir una API de cola o buffer para evitar múltiples peticiones simultáneas y mejorar la respuesta en tiempo real.
+
+2. 🧰 Configuraciones avanzadas del usuario
+
+    Ampliar el panel de configuración actual para incluir:
+
+        Sensibilidad de corrección (alta, media, baja).
+
+        Estilo de escritura preferido (formal, informal, técnico, etc.).
+
+        Idiomas activos y posibilidad de añadir o eliminar diccionarios.
+
+        Palabras personalizadas o diccionario propio del usuario.
+
+    Agregar opción para:
+
+        Activar/desactivar corrección automática por tipo de error (ortografía, gramática, estilo).
+
+        Ver historial de correcciones recientes.
+
+3. 🧩 Gestión de exclusiones avanzada
+
+    Mejorar la sección de exclusión de apps para permitir:
+
+        Buscar e identificar procesos activos por nombre y excluirlos.
+
+        Ver lista de exclusiones con la opción de reactivarlas.
+
+        Importar/exportar configuraciones de exclusión.
+
+4. 📊 Panel de estadísticas enriquecido
+
+    Visualizar:
+
+        Número total de correcciones por día/semana.
+
+        Tipos de errores corregidos (ortografía, gramática, autocompletado).
+
+        Palabras más corregidas o sugeridas.
+
+    Agregar gráficos o indicadores con librerías ligeras (como Chart.js o Recharts).
+
+    Mostrar mensaje motivacional o consejo de escritura según el comportamiento del usuario.
+
+5. 🛠️ Optimización técnica y empaquetado
+
+    Verifica que la app:
+
+        Se inicia con el sistema correctamente (auto-launch).
+
+        Funciona con bajo consumo de CPU/RAM (idealmente con profiling).
+
+        Tiene un proceso principal y secundarios bien gestionados por Electron.
+
+    Prepara la compilación final y empaquetado para:
+
+        Windows (EXE con instalador).
+
+        macOS (DMG o PKG).
+
+        Posibilidad de AppImage o Snap para Linux si se desea extender compatibilidad.
+
+    Asegúrate de que el actual sistema de Electron-builder esté listo para auto updates en futuras versiones.
+
+6. 🔒 Privacidad y manejo local
+
+    Añadir opción para:
+
+        Trabajar completamente en modo offline/local (sin enviar texto a APIs externas).
+
+        En ese caso, usar un corrector gramatical y ortográfico básico local (por ejemplo, con nodehun, nspell, o spaCy si se integra con Python).
+
+    Mostrar en la UI el modo activo: “Local / Online (OpenAI)”.
+
+📁 Revisión estructural recomendada
+
+Asegúrate de mantener la arquitectura modular y clara. Ejemplo sugerido:
+
+/app
+  /core              → lógica de corrección, prompts, filtros contextuales
+  /ui                → componentes de React/Vue/Svelte (según el stack actual)
+  /system            → integración OS, capturadores, bandeja, procesos
+  /services          → integración con OpenAI, corrección local, historial
+  /settings          → configuración del usuario, exclusiones, idioma
+  /stats             → recopilación y visualización de métricas
+  /notifications     → gestor de popups, menús contextuales
+  /assets            → íconos, temas, imágenes
+
+Incluye documentación breve en cada módulo y asegúrate de usar tipado fuerte (TypeScript, si es posible) para mantener la calidad de código.
+📌 Bonus opcional
+
+    Añadir una mini consola o terminal flotante para escribir texto y probar sugerencias directamente desde el panel.
+
+    Crear un modo discreto o “zen mode” donde el usuario puede minimizar la UI a lo esencial.
+
+    Implementar un sistema de feedback anónimo donde el usuario pueda evaluar las sugerencias con 👍 / 👎.

@@ -2,7 +2,8 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useSettings } from "@/hooks/use-settings";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { useSettings, type Settings as SettingsType } from "@/hooks/use-settings";
 import { useExcludedApps } from "@/hooks/use-excluded-apps";
 import ExcludedApps from "./ExcludedApps";
 

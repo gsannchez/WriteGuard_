@@ -3,9 +3,12 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSettings } from "@/hooks/use-settings";
+import { useExcludedApps } from "@/hooks/use-excluded-apps";
+import ExcludedApps from "./ExcludedApps";
 
 export default function Settings() {
   const { settings, updateSetting } = useSettings();
+  const { excludedApps, addExcludedApp, removeExcludedApp } = useExcludedApps();
   
   const toggleFeature = (key: string, value: boolean) => {
     updateSetting(key, value);
@@ -102,6 +105,13 @@ export default function Settings() {
             </div>
           </CardContent>
         </Card>
+        
+        {/* Application Exclusions */}
+        <ExcludedApps 
+          excludedApps={excludedApps}
+          onAddApp={addExcludedApp}
+          onRemoveApp={removeExcludedApp}
+        />
         
         {/* Privacy Settings */}
         <Card>

@@ -7,6 +7,7 @@ import Settings from "@/components/Settings";
 import Statistics from "@/components/Statistics";
 import Demo from "@/components/Demo";
 import SystemTray from "@/components/SystemTray";
+import NotificationManager from "@/components/correction/NotificationManager";
 
 function Router() {
   return (
@@ -27,6 +28,9 @@ function App() {
         <Router />
       </AppLayout>
       <SystemTray />
+      
+      {/* Notification system for text corrections and suggestions */}
+      <NotificationManager />
     </TooltipProvider>
   );
 }

@@ -21,7 +21,7 @@ export function useSettings() {
   const [loading, setLoading] = useState(false);
   
   // Fetch settings from the API
-  const { data: settings = defaultSettings, isLoading } = useQuery({
+  const { data: settings = defaultSettings, isLoading } = useQuery<Settings>({
     queryKey: ['/api/settings'],
     staleTime: 60000, // 1 minute
   });

@@ -19,7 +19,7 @@ export async function initDictionary(language: string = 'en'): Promise<any> {
     try {
       const dictionary = language === 'es' ? es : en;
       
-      dictionary((err: Error, dict: any) => {
+      dictionary((err: Error | null, dict: any) => {
         if (err) {
           console.error(`Error loading dictionary for ${language}:`, err);
           reject(err);

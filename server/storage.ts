@@ -53,15 +53,28 @@ export class MemStorage implements IStorage {
     this.settings.set(this.userId, {
       id: 1,
       userId: this.userId,
+      // System options
       startOnBoot: true,
       showInTray: true,
       autoUpdates: true,
+      // Correction options
       spellingCheck: true,
       grammarCheck: true,
+      styleCheck: false,
       autocomplete: true,
+      // Style preferences
       language: "en-US",
+      writingStyle: "standard",
+      correctionSensitivity: "medium",
+      // Privacy options
       usageData: true,
       storeHistory: true,
+      workOffline: false,
+      // UI preferences
+      notificationStyle: "popup",
+      zenMode: false,
+      // System
+      globalShortcut: "Control+Shift+Space",
       updatedAt: new Date()
     });
   }
@@ -90,15 +103,28 @@ export class MemStorage implements IStorage {
       this.settings.get(this.userId) || {
         id: 1,
         userId: this.userId,
+        // System options
         startOnBoot: true,
         showInTray: true,
         autoUpdates: true,
+        // Correction options
         spellingCheck: true,
         grammarCheck: true,
+        styleCheck: false,
         autocomplete: true,
+        // Style preferences
         language: "en-US",
+        writingStyle: "standard",
+        correctionSensitivity: "medium",
+        // Privacy options
         usageData: true,
         storeHistory: true,
+        workOffline: false,
+        // UI preferences
+        notificationStyle: "popup",
+        zenMode: false,
+        // System
+        globalShortcut: "Control+Shift+Space",
         updatedAt: new Date(),
       }
     );
